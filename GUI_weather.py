@@ -1,8 +1,7 @@
 import urllib, json
 from urllib.request import urlopen
 from tkinter import *
-from PIL import ImageTk
-from PIL import Image
+
 import os
 
 root=Tk()
@@ -26,20 +25,19 @@ class wea:
         lo=json.loads(res)
         f=open("name.txt","w")
         f.write(str(lo))
-        weather =lo['current_observation']['weather']
-        if weather =='clear':
-            img=ImageTk.PhotoImage(Image.open("clear.jpeg"))
-            img = ImageTk.PhotoImage(Image.open("clear.jpeg"))
-            panel = Label(root, image = img)
-            panel.grid()
-        else:
-            img = ImageTk.PhotoImage(Image.open("index.jpeg"))
-            panel = Label(root, image = img)
-            panel.grid()
+        try:
+            weather =lo['current_observation']['weather']
+            name1=Label(root,text=weather)
+      
+            name1.grid(row=3,column=0)
+        except:
+            name1=Label(root,text="Enter valid PNcode")
+      
+            name1.grid(row=3,column=0)
+
             
-        name=Label(root,text=weather)
-        name.grid()    
-        print(weather)
+         
+        
         
 wea()      
 root.mainloop()
